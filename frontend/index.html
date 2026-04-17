@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foodie Delivery</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="logo">Foodie</span>
+            <span class="text">Delivery</span>
+        </div>
+        <div class="search-container">
+            <input id="search-input" type="text" placeholder="Search restaurants, dishes or cuisines" />
+            <button id="search-button">Search</button>
+        </div>
+    </header>
+
+    <main class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h2>Top Filters</h2>
+                <div class="tags" id="tag-list"></div>
+            </div>
+            <div class="sidebar-card">
+                <h2>Your Cart</h2>
+                <div id="mini-cart"></div>
+                <div class="summary">
+                    <div class="summary-row"><span>Subtotal</span><strong>$<span id="summary-subtotal">0.00</span></strong></div>
+                    <div class="summary-row"><span>Delivery</span><strong>$<span id="summary-delivery">2.99</span></strong></div>
+                    <div class="summary-row total"><span>Total</span><strong>$<span id="summary-total">0.00</span></strong></div>
+                </div>
+                <button id="checkout-button" class="btn btn-primary" disabled>Checkout</button>
+            </div>
+        </aside>
+
+        <section class="content">
+            <section id="restaurants-section" class="page active">
+                <div class="hero-card">
+                    <div>
+                        <h1>Discover the best food around you</h1>
+                        <p>Browse 11+ restaurants, explore curated categories and order your favorites in seconds.</p>
+                    </div>
+                    <div class="hero-stat">
+                        <div><strong>11+</strong><span>Restaurants</span></div>
+                        <div><strong>100+</strong><span>Menu items</span></div>
+                        <div><strong>Fast</strong><span>Delivery</span></div>
+                    </div>
+                </div>
+
+                <div class="section-heading">
+                    <h2>Restaurants</h2>
+                    <span id="restaurant-count"></span>
+                </div>
+                <div id="restaurant-list" class="restaurant-grid"></div>
+            </section>
+
+            <section id="menu-section" class="page" hidden>
+                <div class="toolbar">
+                    <button id="back-restaurants" class="btn btn-link">← Back to restaurants</button>
+                    <div>
+                        <span id="restaurant-name" class="restaurant-title"></span>
+                        <span id="restaurant-details" class="restaurant-meta"></span>
+                    </div>
+                </div>
+                <div class="menu-actions">
+                    <div id="category-chips" class="chips"></div>
+                    <button id="view-cart-mobile" class="btn btn-secondary">View Cart</button>
+                </div>
+                <div id="menu-list" class="menu-list"></div>
+            </section>
+
+            <section id="checkout-section" class="page" hidden>
+                <div class="toolbar">
+                    <button id="back-menu" class="btn btn-link">← Back to menu</button>
+                    <span class="section-title">Checkout</span>
+                </div>
+                <div class="checkout-grid">
+                    <div class="checkout-card">
+                        <h3>Delivery details</h3>
+                        <div class="form-group">
+                            <label for="address-select">Select delivery address</label>
+                            <select id="address-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="order-notes">Order notes</label>
+                            <textarea id="order-notes" placeholder="Add delivery instructions or preferences"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment method</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="payment" value="card" checked /> Card</label>
+                                <label><input type="radio" name="payment" value="wallet" /> Wallet</label>
+                                <label><input type="radio" name="payment" value="cash" /> Cash</label>
+                            </div>
+                        </div>
+                        <button id="place-order" class="btn btn-primary">Place order</button>
+                    </div>
+                    <div class="checkout-card summary-card">
+                        <h3>Order Summary</h3>
+                        <div id="checkout-items"></div>
+                        <div class="divider"></div>
+                        <div class="summary-row"><span>Subtotal</span><strong>$<span id="checkout-subtotal">0.00</span></strong></div>
+                        <div class="summary-row"><span>Delivery fee</span><strong>$<span id="checkout-delivery">2.99</span></strong></div>
+                        <div class="summary-row total"><span>Total</span><strong>$<span id="checkout-total">0.00</span></strong></div>
+                        <div class="checkout-note">Your order will be prepared as soon as you confirm checkout.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="confirmation-section" class="page" hidden>
+                <div class="confirmation-card">
+                    <h2>Order confirmed!</h2>
+                    <p>Thanks for ordering with Foodie Delivery. Your meal is being prepared and will arrive soon.</p>
+                    <div class="confirmation-details">
+                        <div><strong>Order ID</strong><span id="confirmation-order-id"></span></div>
+                        <div><strong>Restaurant</strong><span id="confirmation-restaurant"></span></div>
+                        <div><strong>Total paid</strong><span id="confirmation-total"></span></div>
+                    </div>
+                    <button id="continue-shopping" class="btn btn-primary">Continue browsing</button>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
