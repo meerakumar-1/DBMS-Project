@@ -147,7 +147,7 @@ async function openRestaurant(id) {
         <span>${activeRestaurant.cuisine}</span>
         <span>${activeRestaurant.rating.toFixed(1)} ★</span>
         <span>${activeRestaurant.delivery_time}</span>
-        <span>Min order $${activeRestaurant.min_order.toFixed(2)}</span>
+        <span>Min order ₹${activeRestaurant.min_order.toFixed(2)}</span>
     `;
 
     try {
@@ -187,7 +187,7 @@ function renderMenu(categories) {
                     <h4>${item.name}</h4>
                     <p>${item.description || 'Delicious choice'}</p>
                     <div class="price-row">
-                        <span class="price">$${item.price.toFixed(2)}</span>
+                        <span class="price">₹${item.price.toFixed(2)}</span>
                         <span>${item.available ? 'Available' : 'Sold out'}</span>
                     </div>
                 </div>
@@ -243,7 +243,7 @@ function renderMiniCart() {
         card.innerHTML = `
             <div>
                 <strong>${item.name}</strong>
-                <div>${item.quantity} × $${item.price.toFixed(2)}</div>
+                <div>${item.quantity} × ₹${item.price.toFixed(2)}</div>
             </div>
             <div>
                 <button class="btn btn-link" onclick="changeQuantity(${index}, -1)">-</button>
@@ -300,7 +300,7 @@ function renderCheckout() {
         row.className = 'checkout-item';
         row.innerHTML = `
             <span>${item.name} × ${item.quantity}</span>
-            <strong>$${(item.price * item.quantity).toFixed(2)}</strong>
+            <strong>₹${(item.price * item.quantity).toFixed(2)}</strong>
         `;
         checkoutItems.appendChild(row);
     });
@@ -343,7 +343,7 @@ async function placeOrder() {
         const result = await response.json();
         confirmationOrderId.textContent = result.order_id;
         confirmationRestaurant.textContent = activeRestaurant.name;
-        confirmationTotal.textContent = `$${result.total_price.toFixed(2)}`;
+        confirmationTotal.textContent = `₹${result.total_price.toFixed(2)}`;
         cart = [];
         updateCartDisplay();
         orderNotes.value = '';
