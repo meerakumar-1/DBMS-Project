@@ -15,16 +15,16 @@ INSERT OR IGNORE INTO addresses (user_id, address_line, city, zip_code) VALUES
 -- Insert sample restaurants
 INSERT OR IGNORE INTO restaurants (name, owner_id, address, phone, description, cuisine, rating, delivery_time, min_order, price_range) VALUES
 ('Spice Symphony', 2, '100 Feet Rd, Indiranagar, Bengaluru, 560038', '080-555-0101', 'Authentic North Indian favorites with comforting curries.', 'Indian', 4.7, '30-40 min', 500.00, '₹₹'),
-('Roll Republic', 2, 'Connaught Place, New Delhi, 110001', '011-555-0102', 'Street-food inspired rolls, chaats and sharable snacks.', 'Street Food', 4.6, '20-30 min', 250.00, '₹'),
-('Noodle Nest', 2, 'Linking Road, Bandra West, Mumbai, 400050', '022-555-0103', 'Pan-Asian noodles, dumplings, and fusion bowls.', 'Asian', 4.8, '25-35 min', 400.00, '₹₹'),
-('Burger Bistro', 2, 'Jubilee Hills, Hyderabad, 500033', '040-555-0104', 'Gourmet burgers, loaded fries, and creamy shakes.', 'American', 4.5, '18-28 min', 350.00, '₹₹'),
-('Green Garden', 2, 'Park Street, Kolkata, 700016', '033-555-0105', 'Healthy bowls, salads, and detox smoothies.', 'Healthy', 4.9, '25-35 min', 450.00, '₹₹'),
-('Taco Town', 2, 'MG Road, Pune, 411001', '020-555-0106', 'Build-your-own tacos with vibrant salsas and fillings.', 'Mexican', 4.7, '22-32 min', 300.00, '₹₹'),
-('Pasta Piazza', 2, 'Koregaon Park, Pune, 411001', '020-555-0107', 'Classic and creamy pasta plates in an Italian mood.', 'Italian', 4.6, '20-30 min', 550.00, '₹₹'),
-('Sushi Studio', 2, 'Banjara Hills, Hyderabad, 500034', '040-555-0108', 'Fresh sushi rolls, sashimi platters, and Japanese favorites.', 'Japanese', 4.8, '28-38 min', 800.00, '₹₹₹'),
-('BBQ Barn', 2, 'Koramangala, Bengaluru, 560034', '080-555-0109', 'Smoky meats, loaded platters, and hearty grill combos.', 'Barbecue', 4.5, '30-40 min', 600.00, '₹₹'),
-('Sweet Spot', 2, 'Hauz Khas Village, New Delhi, 110016', '011-555-0110', 'Decadent desserts, artisan cakes, and coffee pairings.', 'Desserts', 4.9, '15-25 min', 200.00, '₹'),
-('Sunrise Cafe', 2, 'Colaba Causeway, Mumbai, 400001', '022-555-0111', 'Breakfast classics, waffles, and strong coffee all day.', 'Cafe', 4.6, '18-26 min', 300.00, '₹');
+('Roll Republic', 2, '80 Feet Rd, Koramangala, Bengaluru, 560095', '080-555-0102', 'Street-food inspired rolls, chaats and sharable snacks.', 'Street Food', 4.6, '20-30 min', 250.00, '₹'),
+('Noodle Nest', 2, 'Whitefield Main Rd, Bengaluru, 560066', '080-555-0103', 'Pan-Asian noodles, dumplings, and fusion bowls.', 'Asian', 4.8, '25-35 min', 400.00, '₹₹'),
+('Burger Bistro', 2, '11th Main Rd, Jayanagar, Bengaluru, 560011', '080-555-0104', 'Gourmet burgers, loaded fries, and creamy shakes.', 'American', 4.5, '18-28 min', 350.00, '₹₹'),
+('Green Garden', 2, '27th Main Rd, HSR Layout, Bengaluru, 560102', '080-555-0105', 'Healthy bowls, salads, and detox smoothies.', 'Healthy', 4.9, '25-35 min', 450.00, '₹₹'),
+('Taco Town', 2, 'Sampige Road, Malleshwaram, Bengaluru, 560003', '080-555-0106', 'Build-your-own tacos with vibrant salsas and fillings.', 'Mexican', 4.7, '22-32 min', 300.00, '₹₹'),
+('Pasta Piazza', 2, 'Cunningham Rd, Vasanth Nagar, Bengaluru, 560052', '080-555-0107', 'Classic and creamy pasta plates in an Italian mood.', 'Italian', 4.6, '20-30 min', 550.00, '₹₹'),
+('Sushi Studio', 2, 'Lavelle Road, Shanthala Nagar, Bengaluru, 560001', '080-555-0108', 'Fresh sushi rolls, sashimi platters, and Japanese favorites.', 'Japanese', 4.8, '28-38 min', 800.00, '₹₹₹'),
+('BBQ Barn', 2, 'Commercial Street, Tasker Town, Bengaluru, 560001', '080-555-0109', 'Smoky meats, loaded platters, and hearty grill combos.', 'Barbecue', 4.5, '30-40 min', 600.00, '₹₹'),
+('Sweet Spot', 2, 'Outer Ring Rd, Marathahalli, Bengaluru, 560037', '080-555-0110', 'Decadent desserts, artisan cakes, and coffee pairings.', 'Desserts', 4.9, '15-25 min', 200.00, '₹'),
+('Sunrise Cafe', 2, 'Bannerghatta Rd, JP Nagar, Bengaluru, 560076', '080-555-0111', 'Breakfast classics, waffles, and strong coffee all day.', 'Cafe', 4.6, '18-26 min', 300.00, '₹');
 
 -- Insert sample menu items
 INSERT OR IGNORE INTO menu_items (restaurant_id, name, description, price, category) VALUES

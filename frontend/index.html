@@ -57,20 +57,7 @@
                 <div id="restaurant-list" class="restaurant-grid"></div>
             </section>
 
-            <section id="menu-section" class="page" hidden>
-                <div class="toolbar">
-                    <button id="back-restaurants" class="btn btn-link">← Back to restaurants</button>
-                    <div>
-                        <span id="restaurant-name" class="restaurant-title"></span>
-                        <span id="restaurant-details" class="restaurant-meta"></span>
-                    </div>
-                </div>
-                <div class="menu-actions">
-                    <div id="category-chips" class="chips"></div>
-                    <button id="view-cart-mobile" class="btn btn-secondary">View Cart</button>
-                </div>
-                <div id="menu-list" class="menu-list"></div>
-            </section>
+            <!-- Menu section is now a modal -->
 
             <section id="checkout-section" class="page" hidden>
                 <div class="toolbar">
@@ -124,6 +111,23 @@
             </section>
         </section>
     </main>
+
+    <!-- Restaurant Menu Modal -->
+    <div id="menu-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="restaurant-name-modal" class="restaurant-title-modal"></h2>
+                    <div id="restaurant-details-modal" class="restaurant-meta-modal"></div>
+                </div>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="category-chips-modal" class="chips" style="margin-bottom: 24px;"></div>
+                <div id="menu-list-modal" class="menu-list"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
