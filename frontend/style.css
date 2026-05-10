@@ -456,6 +456,127 @@ textarea {
     padding: 16px 18px;
 }
 
+/* Modal Styles */
+.modal-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(12px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999 !important;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex !important;
+}
+
+.modal-content {
+    background: #fff;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    border-radius: 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 32px 120px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    padding: 32px;
+    background: #fff;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 32px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.close-modal {
+    background: #f1f5f9;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #4b5563;
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background: #e2e8f0;
+    color: #1f2937;
+}
+
+.restaurant-title-modal {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0 0 8px;
+}
+
+.restaurant-meta-modal {
+    display: flex;
+    gap: 12px;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    background: #fff;
+    color: #ff7a59;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.checkbox-label input {
+    width: 18px;
+    height: 18px;
+    accent-color: #ff7a59;
+}
+
 @media (max-width: 1040px) {
     .layout {
         grid-template-columns: 1fr;

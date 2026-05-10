@@ -16,6 +16,13 @@
             <input id="search-input" type="text" placeholder="Search restaurants, dishes or cuisines" />
             <button id="search-button">Search</button>
         </div>
+        <div class="user-actions">
+            <button id="login-nav-button" class="btn btn-secondary">Login</button>
+            <div id="user-profile-nav" class="user-profile" style="display: none;">
+                <span class="avatar">JS</span>
+                <button id="logout-button" class="btn btn-link" style="color: #fff;">Logout</button>
+            </div>
+        </div>
     </header>
 
     <main class="layout">
@@ -57,20 +64,7 @@
                 <div id="restaurant-list" class="restaurant-grid"></div>
             </section>
 
-            <section id="menu-section" class="page" hidden>
-                <div class="toolbar">
-                    <button id="back-restaurants" class="btn btn-link">← Back to restaurants</button>
-                    <div>
-                        <span id="restaurant-name" class="restaurant-title"></span>
-                        <span id="restaurant-details" class="restaurant-meta"></span>
-                    </div>
-                </div>
-                <div class="menu-actions">
-                    <div id="category-chips" class="chips"></div>
-                    <button id="view-cart-mobile" class="btn btn-secondary">View Cart</button>
-                </div>
-                <div id="menu-list" class="menu-list"></div>
-            </section>
+            <!-- Menu section is now a modal -->
 
             <section id="checkout-section" class="page" hidden>
                 <div class="toolbar">
@@ -79,10 +73,22 @@
                 </div>
                 <div class="checkout-grid">
                     <div class="checkout-card">
-                        <h3>Delivery details</h3>
-                        <div class="form-group">
-                            <label for="address-select">Select delivery address</label>
-                            <select id="address-select"></select>
+                        <div id="address-container">
+                            <div id="address-selection-group">
+                                <label for="address-select">Select delivery address</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <select id="address-select"></select>
+                                    <button id="add-new-address-btn" class="btn btn-secondary">+ Add</button>
+                                </div>
+                            </div>
+                            <div id="address-input-group" style="display: none;">
+                                <label for="new-address-input">Enter your full delivery address</label>
+                                <textarea id="new-address-input" placeholder="e.g. 100 Feet Rd, Indiranagar, Bengaluru"></textarea>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="save-address-checkbox" checked /> Save this address for future orders
+                                </label>
+                                <button id="cancel-add-address" class="btn btn-link">Cancel</button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="order-notes">Order notes</label>
@@ -124,6 +130,44 @@
             </section>
         </section>
     </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Welcome Back</h2>
+                <button class="close-modal" id="close-login-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" placeholder="john@example.com" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" />
+                </div>
+                <button id="do-login-button" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Sign In</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restaurant Menu Modal -->
+    <div id="menu-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="restaurant-name-modal" class="restaurant-title-modal"></h2>
+                    <div id="restaurant-details-modal" class="restaurant-meta-modal"></div>
+                </div>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="category-chips-modal" class="chips" style="margin-bottom: 24px;"></div>
+                <div id="menu-list-modal" class="menu-list"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
