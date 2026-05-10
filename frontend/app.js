@@ -1,13 +1,20 @@
 const API_BASE = 'http://localhost:3000/api';
 
+const tags = ['Indian', 'Street Food', 'Asian', 'American', 'Healthy', 'Mexican', 'Italian', 'Japanese', 'BBQ', 'Desserts', 'Cafe'];
+
+// Mock User State
+let user = {
+    isLoggedIn: false,
+    name: "John Smith",
+    email: "john@example.com",
+    savedAddresses: []
+};
+
 let restaurants = [];
 let activeRestaurant = null;
 let menuData = [];
 let cart = [];
-let addresses = [];
-let selectedAddressId = null;
-
-const tags = ['Indian', 'Street Food', 'Asian', 'American', 'Healthy', 'Mexican', 'Italian', 'Japanese', 'BBQ', 'Desserts', 'Cafe'];
+let selectedAddress = null;
 
 const sections = {
     restaurants: document.getElementById('restaurants-section'),
@@ -15,6 +22,7 @@ const sections = {
     confirmation: document.getElementById('confirmation-section')
 };
 
+// DOM References
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const tagList = document.getElementById('tag-list');
@@ -40,11 +48,52 @@ const confirmationOrderId = document.getElementById('confirmation-order-id');
 const confirmationRestaurant = document.getElementById('confirmation-restaurant');
 const confirmationTotal = document.getElementById('confirmation-total');
 
+// New Auth and Address References
+const loginNavButton = document.getElementById('login-nav-button');
+const logoutButton = document.getElementById('logout-button');
+const userProfileNav = document.getElementById('user-profile-nav');
+const loginModal = document.getElementById('login-modal');
+const doLoginButton = document.getElementById('do-login-button');
+const closeLoginModal = document.getElementById('close-login-modal');
+const addressSelectionGroup = document.getElementById('address-selection-group');
+const addressInputGroup = document.getElementById('address-input-group');
+const addNewAddressBtn = document.getElementById('add-new-address-btn');
+const cancelAddAddress = document.getElementById('cancel-add-address');
+const newAddressInput = document.getElementById('new-address-input');
+const saveAddressCheckbox = document.getElementById('save-address-checkbox');
+
 const DELIVERY_FEE = 2.99;
 
 searchButton.addEventListener('click', onSearch);
 searchInput.addEventListener('keydown', event => {
     if (event.key === 'Enter') onSearch();
+});
+
+loginNavButton.addEventListener('click', () => {
+    loginModal.classList.add('active');
+});
+
+closeLoginModal.addEventListener('click', () => {
+    loginModal.classList.remove('active');
+});
+
+doLoginButton.addEventListener('click', () => {
+    user.isLoggedIn = true;
+    updateAuthUI();
+    loginModal.classList.remove('active');
+});
+
+logoutButton.addEventListener('click', () => {
+    user.isLoggedIn = false;
+    updateAuthUI();
+});
+
+addNewAddressBtn.addEventListener('click', () => {
+    toggleAddressInput(true);
+});
+
+cancelAddAddress.addEventListener('click', () => {
+    toggleAddressInput(false);
 });
 
 document.getElementById('back-restaurants')?.addEventListener('click', () => showPage('restaurants'));
@@ -58,15 +107,45 @@ closeModalBtn.addEventListener('click', closeMenuModal);
 menuModal.addEventListener('click', (e) => {
     if (e.target === menuModal) closeMenuModal();
 });
-checkoutButton.addEventListener('click', () => showPage('checkout'));
+checkoutButton.addEventListener('click', () => {
+    if (!user.isLoggedIn) {
+        alert("Please login first to proceed to checkout.");
+        loginModal.classList.add('active');
+        return;
+    }
+    showPage('checkout');
+});
 placeOrderButton.addEventListener('click', placeOrder);
 
 window.addEventListener('DOMContentLoaded', async () => {
     renderTags();
     await loadRestaurants();
-    await loadAddresses();
+    updateAuthUI();
     updateCartDisplay();
 });
+
+function updateAuthUI() {
+    if (user.isLoggedIn) {
+        loginNavButton.style.display = 'none';
+        userProfileNav.style.display = 'flex';
+    } else {
+        loginNavButton.style.display = 'block';
+        userProfileNav.style.display = 'none';
+    }
+    renderAddresses();
+}
+
+function toggleAddressInput(show) {
+    if (show) {
+        addressSelectionGroup.style.display = 'none';
+        addressInputGroup.style.display = 'block';
+        selectedAddress = null;
+    } else {
+        addressSelectionGroup.style.display = 'block';
+        addressInputGroup.style.display = 'none';
+        renderAddresses();
+    }
+}
 
 async function loadRestaurants() {
     try {
@@ -75,16 +154,6 @@ async function loadRestaurants() {
         displayRestaurants(restaurants);
     } catch (error) {
         console.error('Error loading restaurants:', error);
-    }
-}
-
-async function loadAddresses() {
-    try {
-        const response = await fetch(`${API_BASE}/users/1/addresses`);
-        addresses = await response.json();
-        renderAddresses();
-    } catch (error) {
-        console.error('Error loading addresses:', error);
     }
 }
 
@@ -319,16 +388,23 @@ function showPage(pageKey) {
 
 function renderAddresses() {
     addressSelect.innerHTML = '';
-    addresses.forEach(address => {
-        const option = document.createElement('option');
-        option.value = address.id;
-        option.textContent = `${address.address_line}, ${address.city}`;
-        addressSelect.appendChild(option);
-    });
-    selectedAddressId = addresses[0]?.id || null;
-    addressSelect.addEventListener('change', () => {
-        selectedAddressId = parseInt(addressSelect.value, 10);
-    });
+    
+    if (user.savedAddresses.length === 0) {
+        toggleAddressInput(true);
+        cancelAddAddress.style.display = 'none'; // Hide cancel if no other options
+    } else {
+        cancelAddAddress.style.display = 'inline-block';
+        user.savedAddresses.forEach((addr, idx) => {
+            const option = document.createElement('option');
+            option.value = addr;
+            option.textContent = addr;
+            addressSelect.appendChild(option);
+        });
+        selectedAddress = user.savedAddresses[0];
+        addressSelect.addEventListener('change', () => {
+            selectedAddress = addressSelect.value;
+        });
+    }
 }
 
 function renderCheckout() {
@@ -358,18 +434,34 @@ async function placeOrder() {
         alert('Please add items to your cart before checking out.');
         return;
     }
-    if (!selectedAddressId) {
-        alert('Please select a delivery address.');
+
+    let finalAddress = selectedAddress;
+    
+    if (addressInputGroup.style.display !== 'none') {
+        finalAddress = newAddressInput.value.trim();
+        if (!finalAddress) {
+            alert('Please enter a delivery address.');
+            return;
+        }
+        if (saveAddressCheckbox.checked) {
+            if (!user.savedAddresses.includes(finalAddress)) {
+                user.savedAddresses.push(finalAddress);
+            }
+        }
+    }
+
+    if (!finalAddress) {
+        alert('Please select or enter a delivery address.');
         return;
     }
 
     const items = cart.map(item => ({ id: item.id, quantity: item.quantity }));
     const notes = orderNotes.value.trim();
     const orderData = {
-        customer_id: 1,
+        customer_id: 1, // Mock user ID
         restaurant_id: activeRestaurant.id,
         items,
-        delivery_address_id: selectedAddressId,
+        delivery_address_id: 1, // Mock address ID for DB constraint
         notes
     };
 
@@ -391,6 +483,8 @@ async function placeOrder() {
         cart = [];
         updateCartDisplay();
         orderNotes.value = '';
+        newAddressInput.value = '';
+        toggleAddressInput(false);
         showPage('confirmation');
     } catch (error) {
         console.error(error);
